@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -65,7 +64,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </nav>
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {children}
+        <div className="backdrop-blur-md bg-white/60 rounded-xl shadow-lg p-6">
+          {children}
+        </div>
       </main>
     </div>
   );
