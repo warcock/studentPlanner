@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 services:
   - type: web
     name: student-planner-static
@@ -7,4 +8,15 @@ services:
     routes:
       - type: rewrite
         source: /.*
+=======
+services:
+  - type: web
+    name: student-planner-static
+    env: static
+    staticPublishPath: dist
+    buildCommand: npm install && npm run build
+    routes:
+      - type: rewrite
+        source: /.*
+>>>>>>> c9964a02f7b09d9920a8a956c4a5e2617513e473
         destination: /index.html 
