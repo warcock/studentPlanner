@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 56ad73000173295625d7b0cec8a1e0f3134c4ba8
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -88,7 +92,11 @@ const App = () => (
 );
 
 export default App;
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> 56ad73000173295625d7b0cec8a1e0f3134c4ba8
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -126,4 +134,8 @@ const App = () => (
 );
 
 export default App;
+<<<<<<< HEAD
 >>>>>>> c9964a02f7b09d9920a8a956c4a5e2617513e473
+=======
+
+>>>>>>> 56ad73000173295625d7b0cec8a1e0f3134c4ba8

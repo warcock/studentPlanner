@@ -1,4 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+services:
+  - type: web
+    name: student-planner-static
+    env: static
+    staticPublishPath: dist
+    buildCommand: npm install && npm run build
+    routes:
+      - type: rewrite
+        source: /.*
+
+>>>>>>> 56ad73000173295625d7b0cec8a1e0f3134c4ba8
 services:
   - type: web
     name: student-planner-static
