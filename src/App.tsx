@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Tasks from "./pages/Tasks";
@@ -13,6 +13,65 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+
+
+
+import React, { useRef, useEffect, useState } from "react";
+
+const PageTransition: React.FC<{ children: React.ReactNode; locationKey: string }> = ({ children, locationKey }) => {
+  const [displayed, setDisplayed] = useState(children);
+  const [transitionStage, setTransitionStage] = useState("fadeIn");
+  const prevKey = useRef(locationKey);
+
+  useEffect(() => {
+    if (locationKey !== prevKey.current) {
+      setTransitionStage("fadeOut");
+    }
+  }, [locationKey]);
+
+  useEffect(() => {
+    if (transitionStage === "fadeOut") {
+      const timeout = setTimeout(() => {
+        setDisplayed(children);
+        setTransitionStage("fadeIn");
+        prevKey.current = locationKey;
+      }, 250); // fade out duration
+      return () => clearTimeout(timeout);
+    }
+  }, [transitionStage, children, locationKey]);
+
+  return (
+    <div
+      className={`min-h-screen transition-all duration-500 ${
+        transitionStage === "fadeIn"
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-4 pointer-events-none"
+      }`}
+      style={{ willChange: "opacity, transform" }}
+    >
+      {displayed}
+    </div>
+  );
+};
+
+
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <PageTransition locationKey={location.pathname}>
+      <Routes location={location}>
+        <Route path="/" element={<Index />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/reminders" element={<Reminders />} />
+        <Route path="/study-timer" element={<StudyTimer />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </PageTransition>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -20,14 +79,7 @@ const App = () => (
       <Sonner />
       <AuthProvider>
         <HashRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/reminders" element={<Reminders />} />
-            <Route path="/study-timer" element={<StudyTimer />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AnimatedRoutes />
         </HashRouter>
       </AuthProvider>
     </TooltipProvider>

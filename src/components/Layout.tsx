@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   if (!user) {
-    return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">{children}</div>;
+    return <div className="min-h-screen bg-background flex items-center justify-center fade-in">{children}</div>;
   }
 
   const navigation = [
@@ -30,23 +30,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <nav className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-background flex flex-col fade-in">
+      <nav className="bg-white/80 dark:bg-card/80 shadow-sm border-b smooth backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <h1 className="text-xl font-bold text-indigo-600">Student Planner</h1>
+                <h1 className="text-xl font-bold text-primary tracking-tight select-none">Scholar</h1>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 {navigation.map((item) => (
                   <button
                     key={item.path}
                     onClick={() => navigate(item.path)}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    className={`inline-flex items-center px-3 pt-1 border-b-2 text-sm font-medium smooth ${
                       location.pathname === item.path
-                        ? 'border-indigo-500 text-gray-900'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-muted-foreground hover:text-primary hover:border-primary/40'
                     }`}
                   >
                     {item.name}
@@ -55,16 +55,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">Welcome, {user.name}!</span>
-              <Button variant="outline" size="sm" onClick={handleLogout}>
+              <span className="text-sm text-muted-foreground">Welcome, {user.name}!</span>
+              <Button variant="outline" size="sm" className="smooth" onClick={handleLogout}>
                 Logout
               </Button>
             </div>
           </div>
         </div>
       </nav>
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="backdrop-blur-md bg-white/60 rounded-xl shadow-lg p-6">
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 w-full flex-1 flex flex-col fade-in">
+        <div className="backdrop-blur-md bg-white/70 dark:bg-card/70 rounded-xl shadow-lg p-6 smooth fade-in">
           {children}
         </div>
       </main>
